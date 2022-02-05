@@ -2,6 +2,7 @@ library(shiny) # librería de shiny
 library(CausalImpact) # librería Cuasal Impact
 library(ggplot2)
 library(dplyr)
+library(TSA)
 
 # interfaz grafica (frontend)
 shinyUI(
@@ -17,10 +18,11 @@ shinyUI(
                          style = "font-size:50px;", align = "center"),
                       p("Discover more about Causal Impact and see how it works", 
                         style="font-size:25px;", align = "center"),
-                      div(style="display:inline-block",
-                          actionButton(inputId = "goToSim", label = "Start simulating", 
-                                       style="color: #fff; background-color: #337ab7; border-color: #2e6da4, float:center"), 
-                          style="float:center")
+                      div(align = "center", style = "margin-top:50px",
+                          actionButton(inputId = "goToSim", label = "Start Simulating", 
+                                       style="color: #fff; background-color: #337ab7; 
+                                       border-color: #2e6da4; align:center;
+                                       padding:4px; font-size:150%"))
                       ),
              
              # Simulation pane
@@ -36,18 +38,12 @@ shinyUI(
                    selectInput(
                      inputId = "selData",
                      label = h4('Dataset'),
-                     choices = list(
-                       "weather" = "weather",
-                       "storms" = "storms",
-                       "delay" = "delay"
-                     ),
-                     selected = "weather"
+                     choices = c("example"),
+                     selected = "example"
                    ),
                    
-                   dateInput(
-                     inputId = "selDate",
-                     label = h4('Start Date'),
-                     value = "2022-01-28"
+                   uiOutput(
+                     outputId = "datePlace"
                    ),
                    
                    br(),
