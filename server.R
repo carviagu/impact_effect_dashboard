@@ -10,6 +10,7 @@ y[71:85] <- y[71:85] + 10
 time.points <- seq.Date(as.Date("2014-01-01"), by = 1, length.out = 100)
 marketing <- zoo(cbind(y, x1), time.points)
 
+# Server functionality
 
 shinyServer(
   function(input, output, session) {
@@ -19,7 +20,7 @@ shinyServer(
       updateNavbarPage(session = session, inputId = "nav", selected = "Simulator")
     })
     
-    storage <- reactiveValues(first = "", last = "")
+    storage <- reactiveValues()
     
     # Dataset selection
     output$datePlace <- renderUI({
@@ -69,11 +70,24 @@ shinyServer(
         end_date <- start_date+input$numDays
       } else {
         # When the end condition is series value
-        # TO DO 
+        # Find the date (index) where the limit is found
+        ind <- match(start_date,index(storage$df))
+        if (input$selEnd == 1) {
+          end_date <- index(storage$df[ind:length(index(storage$df))])[storage$df[ind:length(index(storage$df))] >= input$maxNum][1]
+        } else {
+          end_date <- index(storage$df[ind:length(index(storage$df))])[storage$df[ind:length(index(storage$df))] <= input$minNum][1]
+        }
+        
+        # If date limit not found, we evaluate the whole series
+        if (is.na(end_date)) {
+          end_date <- storage$last
+          showNotification("Limit not found, impact will be analized until series end",
+                           type = 'warning', duration=5)
+        } 
       }
       
       # Checking End date is not later than time series end date
-      if (storage$last <= end_date) {
+      if (storage$last < end_date) {
         showNotification(paste(strong("Invalid End Date: "),
                                "End date is later than time series end date!"),
                          type = 'error', duration=100)
@@ -89,16 +103,20 @@ shinyServer(
     
     
     output$mainPlot <- renderPlot({
+      # Evaluating impact
       causal()
       
+      # Plotting impact results
       plot(storage$impact, c('original'))
     
     })
     
     
     output$subPlot <- renderPlot({
+      # Evaluating impact
       causal()
       
+      # TO DO
       plot(storage$impact, c('pointwise'))
       
     })

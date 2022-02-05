@@ -1,10 +1,10 @@
-library(shiny) # librería de shiny
-library(CausalImpact) # librería Cuasal Impact
+library(shiny)
+library(CausalImpact)
 library(ggplot2)
 library(dplyr)
 library(TSA)
 
-# interfaz grafica (frontend)
+# user interface (frontend)
 shinyUI(
   
   # Navigation bar for the app
@@ -75,8 +75,7 @@ shinyUI(
                      numericInput(
                        inputId = "maxNum",
                        label = 'Upper limit',
-                       value = 100,
-                       min = 0
+                       value = 150
                      )
                    ),
                    
@@ -85,8 +84,7 @@ shinyUI(
                      numericInput(
                        inputId = "minNum",
                        label = 'Lower limit',
-                       value = -100,
-                       max = 0
+                       value = 150
                      )
                    )
                    
@@ -97,6 +95,9 @@ shinyUI(
                    plotOutput(
                      outputId = 'mainPlot'
                    ),
+                   
+                   # TO DO 
+                   # Add information about impact (quantity, dates and days)
                    
                    h4('More details:'),
                    
@@ -120,8 +121,9 @@ shinyUI(
         
       ),
       
-      tabPanel("About"
-        
+      tabPanel("About",
+        # TO DO
+        # includeHTML("resources/about.html")
       )
       
     )
