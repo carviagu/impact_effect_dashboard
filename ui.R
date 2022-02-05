@@ -63,27 +63,30 @@ shinyUI(
                    conditionalPanel(
                      condition = "input.selEnd == 0",
                      numericInput(
-                       inputId = "num",
+                       inputId = "numDays",
                        label = 'Days',
-                       value = 1
+                       value = 10,
+                       min = 0
                      )
                    ),
                    
                    conditionalPanel(
                      condition = "input.selEnd == 1",
                      numericInput(
-                       inputId = "num",
+                       inputId = "maxNum",
                        label = 'Upper limit',
-                       value = 100
+                       value = 100,
+                       min = 0
                      )
                    ),
                    
                    conditionalPanel(
                      condition = "input.selEnd == 2",
                      numericInput(
-                       inputId = "num",
+                       inputId = "minNum",
                        label = 'Lower limit',
-                       value = -100
+                       value = -100,
+                       max = 0
                      )
                    )
                    

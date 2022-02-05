@@ -42,7 +42,7 @@ shinyServer(
     # Causal Impact Computation
     causal <- reactive({
       # To avoid any error during render
-      req(input$selDate)
+      req(input$selDate, input$numDays, input$maxNum, input$minNum)
       
       start_date <- as.Date(input$selDate)
       
@@ -63,9 +63,27 @@ shinyServer(
 
       # Pre period: Time-Series start date and event start date-1
       pre.period <- c(storage$first, start_date-1)
-      post.period <- c(start_date, storage$last)
       
+      # Post period of impact
+      if (input$selEnd == 0) {
+        end_date <- start_date+input$numDays
+      } else {
+        # When the end condition is series value
+        # TO DO 
+      }
       
+      # Checking End date is not later than time series end date
+      if (storage$last <= end_date) {
+        showNotification(paste(strong("Invalid End Date: "),
+                               "End date is later than time series end date!"),
+                         type = 'error', duration=100)
+        return('Error: Invalid End Date')
+      }
+      
+      # Post period: Start date and 
+      post.period <- c(start_date, end_date)
+      
+      # Calculation of impact
       storage$impact <- CausalImpact(storage$df, pre.period, post.period)
     })
     
