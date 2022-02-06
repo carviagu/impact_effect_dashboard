@@ -19,6 +19,9 @@ shinyServer(
     observeEvent(input$goToSim, {
       updateNavbarPage(session = session, inputId = "nav", selected = "Simulator")
     })
+    observeEvent(input$goToAb, {
+      updateNavbarPage(session = session, inputId = "nav", selected = "About")
+    })
     
     storage <- reactiveValues()
     
@@ -141,6 +144,27 @@ shinyServer(
     
     })
     
+    # TO DO
+    output$totalImp <- renderText({
+      causal()
+      paste("Total impact: ", "PENDING")
+    })
+  
+    output$startDay <- renderText({
+      causal()
+      paste("From: ", storage$eventStart)
+    })
+    
+    output$endDay <- renderText({
+      causal()
+      paste("To: ", storage$eventEnd)
+    })
+    
+    # TO DO
+    output$daysRec <- renderText({
+      causal()
+      paste("Days until recovery: ", "PENDING")
+    })
     
     output$subPlot <- renderPlot({
       # Evaluating impact

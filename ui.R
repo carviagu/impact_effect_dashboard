@@ -22,11 +22,19 @@ shinyUI(
                           actionButton(inputId = "goToSim", label = "Start Simulating", 
                                        style="color: #fff; background-color: #337ab7; 
                                        border-color: #2e6da4; align:center;
-                                       padding:4px; font-size:150%"))
+                                       padding:4px; font-size:150%"),
+                          actionButton(inputId = "goToAb", label = "About",
+                                       style = "align:center; padding:4px; font-size:150%")),
+                      p("Impact Effect Dashboard is an app created to understad how Causal Impact
+                        library works with different examples where you can study the effects on 
+                        different circumstances.", 
+                        style="font-size:20px; margin-top:20px", align = "center")
                       ),
              
              # Simulation pane
-             tabPanel("Simulator", fluid = TRUE,
+             tabPanel("Simulator", fluid = TRUE, icon = icon("chart-area"),
+                      
+                      titlePanel("Causal Impact Effect Simulation"),
                # Main panel
                sidebarLayout(
                  
@@ -99,18 +107,55 @@ shinyUI(
                    
                    # TO DO 
                    # Add information about impact (quantity, dates and days)
+                   fluidRow( align="center",
+                     column(width=4, align="left",
+                           textOutput(
+                             outputId = "totalImp"
+                               ),
+                           textOutput(
+                             outputId = "startDay"
+                               )
+                            ),
+                    
+                     column(width=4, align="left",
+                            textOutput(
+                              outputId = 'daysRec'
+                                    ),
+                            textOutput(
+                              outputId = 'endDay'
+                                    )
+                            ),
+                     
+                   ),
                    
-                   h4('More details:'),
+                   p(
+                     "\n"
+                   ),
                    
-                   checkboxGroupInput(
-                     inputId = 'inpuCheck',
-                     labe = "",
-                     choices = list(
-                       "Accumulated impact" = 1,
-                       "Punctual impact" = 2,
-                       "Relative impact" = 3
-                     ),
-                     selected = 1
+                   wellPanel(
+                     fluidRow(
+                       column(3, 
+                              h4('More details:')),
+                       
+                       column(3,
+                              checkboxInput(
+                                inputId ="showAcum",
+                                label = "Acumulated Impact",
+                                value = TRUE
+                              )),
+                       column(3,
+                              checkboxInput(
+                                inputId ="showPunc",
+                                label = "Punctual Impact",
+                                value = FALSE
+                              )),
+                       column(3,
+                              checkboxInput(
+                                inputId ="showRelative",
+                                label = "Relative Impact",
+                                value = FALSE
+                              ))
+                     )
                    ),
                    
                    plotOutput(
@@ -119,7 +164,7 @@ shinyUI(
                    )
                  )
               ),
-      tabPanel("About",
+      tabPanel("About",icon = icon("book"),
         # TO DO
         #includeHTML("resources/about.html")
         includeMarkdown("resources/about.Rmd")
