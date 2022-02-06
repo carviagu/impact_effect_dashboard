@@ -2,7 +2,7 @@ library(shiny)
 library(CausalImpact)
 library(ggplot2)
 library(dplyr)
-library(TSA)
+library(shinycssloaders)
 
 # user interface (frontend)
 shinyUI(
@@ -93,8 +93,9 @@ shinyUI(
                  # Plots area
                  mainPanel(
                    plotOutput(
-                     outputId = 'mainPlot'
-                   ),
+                     outputId = 'mainPlot',
+                     click = 'onClick'
+                   ) %>% withSpinner(type = 8, size = 0.5, color = '#7D7C7C'),
                    
                    # TO DO 
                    # Add information about impact (quantity, dates and days)
@@ -114,16 +115,14 @@ shinyUI(
                    
                    plotOutput(
                      outputId = 'subPlot'
+                     ) %>% withSpinner(type = 8, size = 0.5, color = '#7D7C7C')
                    )
                  )
-                 
-               )
-        
-      ),
-      
+              ),
       tabPanel("About",
         # TO DO
-        # includeHTML("resources/about.html")
+        #includeHTML("resources/about.html")
+        includeMarkdown("resources/about.Rmd")
       )
       
     )
