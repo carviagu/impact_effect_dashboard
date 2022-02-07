@@ -21,7 +21,7 @@ In other words, it simulates the behalf of a series considering if a given inter
 
 This model was created by **Google**, and it was conceived to simulate the impact of a marketing campaign. If the model determined that this campaign was going to have a positive impact, then this campaign should be set and prepared.
 
-Nevertheless, this powerful methodology can be applied to many different fields and cases. For instance, 
+Nevertheless, this powerful methodology can be applied to many different fields and cases. For instance, the app 
 
 ### Causal Impact in action
 
