@@ -8,7 +8,46 @@ x1 <- 100 + arima.sim(model = list(ar = 0.999), n = 100)
 y <- 1.2 * x1 + rnorm(100)
 y[71:85] <- y[71:85] + 10
 time.points <- seq.Date(as.Date("2014-01-01"), by = 1, length.out = 100)
-marketing <- zoo(cbind(y, x1), time.points)
+views <- zoo(cbind(y, x1), time.points)
+
+
+#-------------------------------------------------------------------------------
+# BTS
+#-------------------------------------------------------------------------------
+
+BTS <- read.csv("data/spotify_bts.csv", sep=",")
+time.points_malone <- seq.Date(as.Date("2021-01-01"), by = 1, length.out = 334)
+BTS <- zoo(BTS$streams, time.points_malone)
+BTS
+
+#-------------------------------------------------------------------------------
+# Olivia
+#-------------------------------------------------------------------------------
+
+olivia <- read.csv("data/spotify_olivia-rodrigo.csv", sep=",")
+time.points_olivia <- seq.Date(as.Date("2021-01-02"), by = 1, length.out = 334)
+olivia <- zoo(olivia$streams, time.points_olivia)
+olivia
+
+#-------------------------------------------------------------------------------
+# Travis Scot
+#-------------------------------------------------------------------------------
+
+travis <- read.csv("data/spotify_travis-scott.csv", sep=",")
+time.points_travis <- seq.Date(as.Date("2021-09-01"), by = 1, length.out = 91)
+travis <- zoo(travis$streams, time.points_travis)
+travis
+
+#-------------------------------------------------------------------------------
+# Disney
+#-------------------------------------------------------------------------------
+
+Disney <- read.csv("data/disney.csv", sep=";")
+time.points_disney <- seq.Date(as.Date("2018-10-01"), by = 1, length.out = 167)
+Disney <- zoo(Disney$price, time.points_disney)
+Disney
+
+
 
 # Server functionality
 
@@ -28,7 +67,9 @@ shinyServer(
     # Event start date selection
     output$datePlace <- renderUI({
       storage$df <- switch(input$selData,
-                           "example" = marketing)
+                           "Views" = views, "BTS" = BTS,
+                           "olivia rodriguez" = olivia, "Travis Scott" = travis,
+                           "Disney" = Disney)
       
       # Saving start and end dates of the time-series
       storage$first <- as.Date(index(storage$df)[1])

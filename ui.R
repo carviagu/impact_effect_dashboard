@@ -3,6 +3,7 @@ library(CausalImpact)
 library(ggplot2)
 library(dplyr)
 library(shinycssloaders)
+library(zoo)
 
 # user interface (frontend)
 shinyUI(
@@ -46,7 +47,7 @@ shinyUI(
                    selectInput(
                      inputId = "selData",
                      label = h4('Dataset'),
-                     choices = c("example"),
+                     choices = c("Views", "BTS", "olivia rodriguez", "Travis Scott", "Disney"),
                      selected = "example"
                    ),
                    
