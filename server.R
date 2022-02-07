@@ -168,9 +168,9 @@ shinyServer(
         geom_vline(xintercept = as.numeric(c(storage$eventStart, 
                                              storage$eventEnd)),
                    color='blue', linetype='twodash') +
-        geom_label(aes(x=(storage$eventStart-2), y=min(response-2), label='Event Start'), 
+        geom_label(aes(x=(storage$eventStart-2), y=(min(response)-2), label='Event Start'), 
                    fill='lightgrey', label.size=0, angle=90) +
-        geom_label(aes(x=(storage$eventEnd-2), y=min(response-2), label='Event End', angle=90), 
+        geom_label(aes(x=(storage$eventEnd-2), y=(min(response)-2), label='Event End', angle=90), 
                    fill='lightgrey', label.size = 0, angle=90) +
         labs(x = "Days", y = "Real / Expected Values") +
         ggtitle('Causal impact event analysis') +
@@ -206,15 +206,46 @@ shinyServer(
       # Evaluating impact
       causal()
       
-      # TO DO
-      ggplot(storage$impact$series, aes(x=Index)) +
-        geom_line(aes(y=cum.effect), color='red', linetype='longdash', 
-                  show.legend = TRUE) +
-        geom_vline(xintercept = as.numeric(c(storage$eventStart, 
+      plt <- ggplot(storage$impact$series, aes(x=Index))
+      
+      lgnd <- c()
+      
+      if (input$showAcum) {
+        plt <- plt + 
+          geom_ribbon(aes(ymin=cum.effect.lower, ymax=cum.effect.upper), alpha=0.05, fill='purple', colour='purple') +
+          geom_line(aes(y=cum.effect,  color='Acumulated'), linetype='longdash', 
+                        show.legend = TRUE)
+        lgnd <- c(lgnd, "Acumulated" = "purple")
+      }
+      
+      if (input$showPunc) {
+        plt <- plt + 
+          geom_ribbon(aes(ymin=point.effect.lower, ymax=point.effect.upper), alpha=0.05, fill='darkgreen', colour='darkgreen') +
+          geom_line(aes(y=point.effect, color='Pointwise'), linetype='dotted', 
+                        show.legend = TRUE)
+        lgnd <- c(lgnd, "Pointwise" = "darkgreen")
+      }
+      
+      if (length(lgnd) == 0) {
+        plt <- plt + geom_text(aes(x=as.Date(index(storage$df)[round(length(index(storage$df))/2)]), 
+                            y=0, label="Select the chart(s) to be desplayed"), size=6)
+      } else {
+         plt <- plt +
+          geom_vline(xintercept = as.numeric(c(storage$eventStart, 
                                              storage$eventEnd)),
                    color='blue', linetype='twodash') +
-        theme_light()
+          geom_label(aes(x=(storage$eventStart-2), y=max(storage$impact$series$cum.effect.upper), label='Event Start'), 
+                     fill='lightgrey', label.size=0, angle=90) +
+          geom_label(aes(x=(storage$eventEnd-2), y=max(storage$impact$series$cum.effect.upper), label='Event End', angle=90), 
+                     fill='lightgrey', label.size = 0, angle=90)
+      }
       
+      plt +
+        labs(x = "Days", y = "Impact Effect") +
+        ggtitle('Impact effect analysis') +
+        scale_color_manual(name = 'Legend', values = lgnd) +
+        theme_light() +
+        theme(plot.title=element_text(family='', face='bold', size='20'))
     })
     
   }
