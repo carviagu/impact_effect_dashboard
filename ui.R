@@ -47,7 +47,11 @@ shinyUI(
                    selectInput(
                      inputId = "selData",
                      label = h4('Dataset'),
-                     choices = c("Views", "BTS", "olivia rodriguez", "Travis Scott", "Disney"),
+                     choices = c("views", 
+                                 "BTS", 
+                                 "olivia rodriguez", 
+                                 "Travis Scott", 
+                                 "disney"),
                      selected = "example"
                    ),
                    
