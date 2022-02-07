@@ -9,17 +9,47 @@ output:
 ## About the Impact Effect Dashboard
 
 
+
 ### About Causal Impact
+
+As it is explained in **Brodersen et al (2015)**, *"The causal impact of a treatment is the difference between the observed value of the response and the (unobserved) value that would have been obtained under the alternative treatment, that is, the effect of treatment on the treated"*, *"In the present setting the response variable is a time series, so the causal effect of interest is the difference between the observed series and the series that would have been observed had the intervention not taken place."* 
+
+In other words, it simulates the behalf of a series considering if a given intervention didn't take place. In this case, all the series included will be time series. 
 
 
 ### Examples
 
+This model was created by **Google**, and it was conceived to simulate the impact of a marketing campaign. If the model determined that this campaign was going to have a positive impact, then this campaign should be set and prepared.
+
+Nevertheless, this powerful methodology can be applied to many different fields and cases. For instance, 
+
 ### Causal Impact in action
+
+#### Inputs in the application
+
+In this applications, there are some parameters that need to be specified: 
+
+* **Dataset**. In this slider input, you can choose among the example datasets included in the app, so that the impact can be visualized. 
+
+* **Event date**. In order to select the date of start of the time interval.
+
+* **End condition**. To specify the criterium for selecting the time interval. It could be either by setting a fixed interval (the display will show the number of days to set for that interval), by setting the input to minimum (the display will start from the first date available)
+
 
 ### The team
 
+* Carlos Viñals Guitart (carlos.vinals@cunef.edu) - Github repo: https://github.com/carviagu/impact_effect_dashboard 
+
+* Sergio Ranz Casado (sergio.ranz@cunef.edu) - Github repo: https://github.com/sergerc/impact_effect_dashboard 
+
+* Marcos Medina Cogolludo (marcos.medina@cunef.edu) - Github repo: https://github.com/marcosmedina97/impact_effect_dashboard 
+
+* Jaime del Saz (jaime.saz@cunef.edu) - Github repo: https://github.com/jaimee8/impact_effect_dashboard
+
+* Álvaro Serrano del Rincón (a.serranodelrincon@cunef.edu) - Github repo: https://github.com/aserincon/impact_effect_dashboard
+
 ### References
 
-Brodersen, K. H., Gallusser, F., Koehler, J., Remy, N., & Scott, S. L. (2015). Inferring causal impact using Bayesian structural time-series models. The Annals of Applied Statistics, 9(1), 247-274.
+Brodersen, K. H., Gallusser, F., Koehler, J., Remy, N., & Scott, S. L. (2015). Inferring causal impact using Bayesian structural time-series models. The Annals of Applied Statistics, 9(1), 247-274. 
 
 
