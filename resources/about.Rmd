@@ -38,15 +38,15 @@ In this applications, there are some parameters that need to be specified:
 
 ### The team
 
-* Carlos Viñals Guitart (carlos.vinals@cunef.edu) - Github repo: https://github.com/carviagu/impact_effect_dashboard 
+* **Carlos Viñals Guitart** (carlos.vinals@cunef.edu) - Github repo: https://github.com/carviagu/impact_effect_dashboard 
 
-* Sergio Ranz Casado (sergio.ranz@cunef.edu) - Github repo: https://github.com/sergerc/impact_effect_dashboard 
+* **Sergio Ranz Casado** (sergio.ranz@cunef.edu) - Github repo: https://github.com/sergerc/impact_effect_dashboard 
 
-* Marcos Medina Cogolludo (marcos.medina@cunef.edu) - Github repo: https://github.com/marcosmedina97/impact_effect_dashboard 
+* **Marcos Medina Cogolludo** (marcos.medina@cunef.edu) - Github repo: https://github.com/marcosmedina97/impact_effect_dashboard 
 
-* Jaime del Saz (jaime.saz@cunef.edu) - Github repo: https://github.com/jaimee8/impact_effect_dashboard
+* **Jaime del Saz** (jaime.saz@cunef.edu) - Github repo: https://github.com/jaimee8/impact_effect_dashboard
 
-* Álvaro Serrano del Rincón (a.serranodelrincon@cunef.edu) - Github repo: https://github.com/aserincon/impact_effect_dashboard
+* **Álvaro Serrano del Rincón** (a.serranodelrincon@cunef.edu) - Github repo: https://github.com/aserincon/impact_effect_dashboard
 
 ### References
 
