@@ -168,9 +168,9 @@ shinyServer(
         geom_vline(xintercept = as.numeric(c(storage$eventStart, 
                                              storage$eventEnd)),
                    color='blue', linetype='twodash') +
-        geom_label(aes(x=(storage$eventStart-2), y=(min(response)-2), label='Event Start'), 
+        geom_label(aes(x=(storage$eventStart-2), y=(max(response)-2), label='Event Start'), 
                    fill='lightgrey', label.size=0, angle=90) +
-        geom_label(aes(x=(storage$eventEnd-2), y=(min(response)-2), label='Event End', angle=90), 
+        geom_label(aes(x=(storage$eventEnd-2), y=(max(response)-2), label='Event End', angle=90), 
                    fill='lightgrey', label.size = 0, angle=90) +
         labs(x = "Days", y = "Real / Expected Values") +
         ggtitle('Causal impact event analysis') +
@@ -183,7 +183,7 @@ shinyServer(
     # TO DO
     output$totalImp <- renderText({
       causal()
-      paste("Total impact: ", "PENDING")
+      paste("Total impact: ", round(storage$impact$series$cum.effect[storage$eventEnd],2))
     })
   
     output$startDay <- renderText({
@@ -199,7 +199,32 @@ shinyServer(
     # TO DO
     output$daysRec <- renderText({
       causal()
-      paste("Days until recovery: ", "PENDING")
+      
+      
+        
+      recovery <- "no recovery"
+      final_value <- storage$impact$series$response[storage$eventEnd]
+      
+      if(final_value < storage$impact$series$point.pred.upper[storage$eventEnd] 
+         & final_value > storage$impact$series$point.pred.lower[storage$eventEnd]){
+        
+        recoverday <- as.data.frame(storage$impact$series) %>%
+          select(response, point.pred.lower, point.pred.upper) %>% 
+          slice(which(index(storage$impact$series) == as.character.Date(storage$eventStart)) : which(index(storage$impact$series) == as.character.Date(storage$eventEnd))) %>% 
+          mutate(out = if_else((response < point.pred.lower | response > point.pred.upper),1,0)) %>% 
+          select(out) %>% 
+          arrange(-row_number()) 
+      
+        recovery <-   if_else(max(recoverday) == 0, 
+                              "no recover", 
+                              as.character(-1* as.numeric(
+                                storage$eventStart - as.Date(rownames(recoverday)[which(recoverday == 1)[1]]), units = "days")))
+        
+        print(recoverday)
+     
+      }
+      
+      paste("Days until recovery: ", recovery)
     })
     
     output$subPlot <- renderPlot({
