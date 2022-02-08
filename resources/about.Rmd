@@ -24,11 +24,14 @@ Nevertheless, this powerful methodology can be applied to many different fields 
 
 Data sets used in the Shiny App include:
 
-Views- 
+* **Views** 
+Number of visualizations from a YouTube channel about the new Spider man video game. This data is extracted from YouTube analytics and contains the daily views obtained over a year. 
 
-Spotify- This is a complete dataset of all the "Top 200" and "Viral 50" charts published globally by Spotify. We selected the variables "date" and "streams" from Spotify for the following artist, Olivia Rodrigo, BTS and Travis Scott. From the variable "date" we filtered the daily data from 2021 going forward.
+* **Spotify** 
+This is a complete dataset of all the "Top 200" and "Viral 50" charts published globally by Spotify. We selected the variables "date" and "streams" from Spotify from the following artist. Olivia Rodrigo, BTS and Travis Scott. We filtered the variable "date" by daily data from 2021 going forward.
 
-Disney stock price- In order to diverse and expand our Shiny, we introduced another data set. In this case the evolution of Disney´s stock price extracted from Yahoo finance. The variable "date" includes daily data from the years 2018 and 2019. 
+* **Disney stock price** 
+In order to diverse and expand our Shiny, we introduced another data set. In this case the evolution of Disney´s stock price extracted from Yahoo finance. The variable "date" includes daily data from the years 2018 and 2019. 
 
 Note
 The value of streams is NULL when the chart column is "viral50".
