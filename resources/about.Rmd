@@ -6,7 +6,8 @@ output:
     toc: true
 ---
 
-## About the Impact Effect Dashboard
+
+## About the Impact Effect Dashboard 
 
 As it is explained in **Brodersen et al (2015)**, *"The causal impact of a treatment is the difference between the observed value of the response and the (unobserved) value that would have been obtained under the alternative treatment, that is, the effect of treatment on the treated"*, *"In the present setting the response variable is a time series, so the causal effect of interest is the difference between the observed series and the series that would have been observed had the intervention not taken place."* 
 
@@ -76,4 +77,4 @@ To specify the criterium for selecting the time interval. It could be either by 
 
 Brodersen, K. H., Gallusser, F., Koehler, J., Remy, N., & Scott, S. L. (2015). Inferring causal impact using Bayesian structural time-series models. The Annals of Applied Statistics, 9(1), 247-274. 
 
-
+![](https://www.fondos12.com/data/big/18/thats-all-folks-7172-1920x1200__wallpaper_480x300.jpg)
