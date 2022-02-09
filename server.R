@@ -46,7 +46,7 @@ Disney <- zoo(Disney$price, time.points_disney)
 shinyServer(
   function(input, output, session) {
     
-    # Welcome button functionality
+    # Welcome buttons functionalities
     observeEvent(input$goToSim, {
       updateNavbarPage(session = session, inputId = "nav", selected = "Simulator")
     })
@@ -154,7 +154,7 @@ shinyServer(
       storage$impact <- CausalImpact(isolate(storage$df), pre.period, post.period)
     })
     
-    
+    # Main plot render
     output$mainPlot <- renderPlot({
       # Evaluating impact
       causal()
@@ -180,61 +180,125 @@ shinyServer(
     
     })
     
-    # TO DO
+    # Total impact render
     output$totalImp <- renderText({
       causal()
+      
+      # Total impact is the final accumulated impact located at event end date
       paste("Total impact: ", round(storage$impact$series$cum.effect[storage$eventEnd],2))
     })
   
+    # Start day render
     output$startDay <- renderText({
       causal()
       paste("From: ", storage$eventStart)
     })
     
+    # End day render
     output$endDay <- renderText({
       causal()
       paste("To: ", storage$eventEnd)
     })
     
-    # TO DO
+    # Days to recovery render
     output$daysRec <- renderText({
       causal()
       
-      
-        
+      # Default case: no recovery
       recovery <- "no recovery"
       final_value <- storage$impact$series$response[storage$eventEnd]
       
+      # If the value is inside confidence interval we need to find recovery day
       if(final_value < storage$impact$series$point.pred.upper[storage$eventEnd] 
          & final_value > storage$impact$series$point.pred.lower[storage$eventEnd]){
         
+        # We filter the days where the impact is being analyzed
+        # We check which of these days the values are outside the confidence interval
+        # Being 1 a day when value is outside and 0 otherwise
+        # We invert the days of the result list
         recoverday <- as.data.frame(storage$impact$series) %>%
           select(response, point.pred.lower, point.pred.upper) %>% 
-          slice(which(index(storage$impact$series) == as.character.Date(storage$eventStart)) : which(index(storage$impact$series) == as.character.Date(storage$eventEnd))) %>% 
+          slice(
+            which(index(storage$impact$series) == as.character.Date(storage$eventStart)):which(index(storage$impact$series) == as.character.Date(storage$eventEnd))) %>% 
           mutate(out = if_else((response < point.pred.lower | response > point.pred.upper),1,0)) %>% 
           select(out) %>% 
           arrange(-row_number()) 
-      
+        
+        # If maximum value of result list is 0, there isn't impact at all
+        # Otherwise we make the difference between the start date and the day when impact ends
+        # The day when impact ends is the first occurrence of value 1 in the inverted list
         recovery <-   if_else(max(recoverday) == 0, 
                               "no recover", 
                               as.character(-1* as.numeric(
                                 storage$eventStart - as.Date(rownames(recoverday)[which(recoverday == 1)[1]]), units = "days")))
-        
-        print(recoverday)
-     
       }
       
       paste("Days until recovery: ", recovery)
     })
     
+    # Report information button
+    observeEvent(input$showSum, {
+      showModal(modalDialog(
+        title="Causal Impact Report",
+        size = 'l',
+        footer = tagList(
+          modalButton("Cancel"),
+          downloadButton(
+            outputId = "download",
+            "Save Report",
+            style="color: #fff; background-color: #337ab7; 
+            border-color: #2e6da4; align:center;")
+        ),
+        easyClose = TRUE,
+        
+        {
+          span("This is the Causal Impact auto-generated summary report: ", 
+               wellPanel( style = "background: white",
+                          uiOutput(
+                            outputId = "reportOut"
+                            ) 
+                          )
+               )
+        }
+        
+      ))
+      
+    })
+    
+    # Report output
+    output$reportOut <- renderUI({
+      # Replace string format to html format
+      txt1 <- str_replace_all(storage$impact$report, "\n", "<br/>")
+      txt2 <- "Generated using Causal Impact Library with Impact Effect Dashboard."
+      
+      HTML(paste(txt1, txt2, sep = '<br/><br/>'))
+      
+    })
+    
+    # Download report button action
+    output$download <- downloadHandler(
+      filename = function() {
+        "report.txt"
+      },
+      content = function(con) {
+        writeLines(paste(storage$impact$report,
+                         "\n\n Generated using Causal Impact Library with Impact Effect Dashboard.")
+                   , con)
+      }
+    )
+    
+    # Auxiliary plot render
     output$subPlot <- renderPlot({
       # Evaluating impact
       causal()
       
+      # Plot initialize
       plt <- ggplot(storage$impact$series, aes(x=Index))
       
+      # Legend list
       lgnd <- c()
       
+      # If showAcum selected we added to the plot
       if (input$showAcum) {
         plt <- plt + 
           geom_ribbon(aes(ymin=cum.effect.lower, ymax=cum.effect.upper), alpha=0.05, fill='purple', colour='purple') +
@@ -243,6 +307,7 @@ shinyServer(
         lgnd <- c(lgnd, "Acumulated" = "purple")
       }
       
+      # If showPunc selected we added to the plot
       if (input$showPunc) {
         plt <- plt + 
           geom_ribbon(aes(ymin=point.effect.lower, ymax=point.effect.upper), alpha=0.05, fill='darkgreen', colour='darkgreen') +
@@ -251,10 +316,12 @@ shinyServer(
         lgnd <- c(lgnd, "Pointwise" = "darkgreen")
       }
       
+      # If legend has size 0 means none chart is selected we put info message
       if (length(lgnd) == 0) {
         plt <- plt + geom_text(aes(x=as.Date(index(storage$df)[round(length(index(storage$df))/2)]), 
                             y=0, label="Select the chart(s) to be desplayed"), size=6)
       } else {
+        # Otherwise we add miscellaneous aspects like impact limits and labels
          plt <- plt +
           geom_vline(xintercept = as.numeric(c(storage$eventStart, 
                                              storage$eventEnd)),
@@ -265,6 +332,7 @@ shinyServer(
                      fill='lightgrey', label.size = 0, angle=90)
       }
       
+      # Final plot touches
       plt +
         labs(x = "Days", y = "Impact Effect") +
         ggtitle('Impact effect analysis') +

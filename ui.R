@@ -4,6 +4,7 @@ library(ggplot2)
 library(dplyr)
 library(shinycssloaders)
 library(zoo)
+library(stringr)
 
 # user interface (frontend)
 shinyUI(
@@ -88,7 +89,7 @@ shinyUI(
                      numericInput(
                        inputId = "maxNum",
                        label = 'Upper limit',
-                       value = 150
+                       value = 100
                      )
                    ),
                    
@@ -97,10 +98,9 @@ shinyUI(
                      numericInput(
                        inputId = "minNum",
                        label = 'Lower limit',
-                       value = 150
+                       value = 50
                      )
                    )
-                   
                  ),
                  
                  # Plots area
@@ -139,26 +139,26 @@ shinyUI(
                    
                    wellPanel(
                      fluidRow(
-                       column(3, 
+                       column(2, 
                               h4('More details:')),
                        
-                       column(3,
+                       column(2,
                               checkboxInput(
                                 inputId ="showAcum",
                                 label = "Acumulated Impact",
                                 value = TRUE
                               )),
-                       column(3,
+                       column(4,
                               checkboxInput(
                                 inputId ="showPunc",
-                                label = "Punctual Impact",
+                                label = "Punctual / Relative Impact",
                                 value = FALSE
                               )),
-                       column(3,
-                              checkboxInput(
-                                inputId ="showRelative",
-                                label = "Relative Impact",
-                                value = FALSE
+                       column(4, align="right",
+                              actionButton(
+                                inputId ="showSum",
+                                label = strong("Show Report"),
+                                icon = icon("fas fa-file-alt")
                               ))
                      )
                    ),
@@ -170,8 +170,6 @@ shinyUI(
                  )
               ),
       tabPanel("About",icon = icon("book"),
-        # TO DO
-        #includeHTML("resources/about.html")
         includeMarkdown("resources/about.Rmd")
       )
       
