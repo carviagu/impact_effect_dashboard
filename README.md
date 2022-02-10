@@ -11,6 +11,10 @@ condiciones bajo las cuales este pararía. Además permite analizar el impacto a
 [ENG] Proyect of the Masters' Degree at Data Science Visualization subject. This is a Shiny app that shows how [Causal Impact](http://google.github.io/CausalImpact/CausalImpact.html) library developed by Google works. The app uses 
 a series of example datasets and lets the user chose the start date of the event and the end conditions. The user can also see the acumulated, and punctual impact.
 
+<p align="center">
+  <img width="450" height="300" src="/img/app.gif">   
+</p>
+
 ## Dependencies :books:
 For executing this app the following libraries are required:
 * [shiny](https://shiny.rstudio.com/)
