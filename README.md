@@ -1,4 +1,8 @@
-#  :boom: Impact Effect Dashboard  :boom:
+<p align="center">
+  <img width="400" height="159" src="/img/IMPACTEFFECTLOGO_transparent.png">   
+</p>
+     
+ ---
 
 [ESP] Proyecto de Visualización del Master Universitario en Ciencia de Datos. Este consiste en una apliación Shiny que muestra el funcionamiento de la librería
 [Causal Impact](http://google.github.io/CausalImpact/CausalImpact.html) desarrollada por Google. Para ello hace uso de unos datasets de ejemplo y permite al usuario seleccionar la fecha del evento donde se produce el impacto y las 
