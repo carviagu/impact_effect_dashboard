@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="400" height="159" src="/img/IMPACTEFFECTLOGO_transparent.png">   
+  <img width="450" height="159" src="/img/IMPACTEFFECTLOGO_transparent.png">   
 </p>
      
  ---
