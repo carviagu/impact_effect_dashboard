@@ -10,7 +10,7 @@ library(stringr)
 shinyUI(
   
   # Navigation bar for the app
-  navbarPage(title = div(img(src="https://raw.githubusercontent.com/sergerc/California_Electricity_Demand_Forecast/main/Imagenes/IMPACTEFFECTLOGO.PNG",
+  navbarPage(title = div(img(src="https://raw.githubusercontent.com/carviagu/impact_effect_dashboard/main/img/IMPACTEFFECTLOGO_transparent.PNG",
                              style="margin-top: -14px;
                                padding-bottom:10px",
                              height = 59, width = 200)),
@@ -19,10 +19,13 @@ shinyUI(
              # Welcome pane 
              tabPanel("Welcome", fluid = TRUE,
                       br(),
-                      h1(strong("Welcome to the Impact Effect Dashboard!"), 
+                      h1(strong("Welcome to the"), 
                          style = "font-size:50px;", align = "center"),
+                      div(align = "center",
+                          img(src="https://raw.githubusercontent.com/carviagu/impact_effect_dashboard/main/img/IMPACTEFFECTLOGO.PNG",
+                              height = 150)),
                       p("Discover more about Causal Impact and see how it works", 
-                        style="font-size:25px;", align = "center"),
+                        style="font-size:25px; margin-top:20px", align = "center"),
                       div(align = "center", style = "margin-top:50px",
                           actionButton(inputId = "goToSim", label = "Start Simulating", 
                                        style="color: #fff; background-color: #337ab7; 
@@ -35,9 +38,10 @@ shinyUI(
                         different circumstances.", 
                         style="font-size:20px; margin-top:20px", align = "center"),
                       div(align = "center",style = "margin-top:100px",
-                          img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMeWxt4VQpaUIGEvrNaOIc6Tq6Qqgx_jQs-drx7o9LH7DaY89KFqp5HwvnQEysjZt8rfY&usqp=CAU",
+                          p("Created with"),
+                          img(src="https://raw.githubusercontent.com/carviagu/impact_effect_dashboard/main/img/Rstudio_logo.png",
                               height = 50),
-                          img(src="https://www.worldbank.org/content/dam/photos/780x439/2021/apr/Shiny-logo.png",
+                          img(src="https://raw.githubusercontent.com/carviagu/impact_effect_dashboard/main/img/Shiny-logo.png",
                               height = 100))
                           
                       ),
