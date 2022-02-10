@@ -10,7 +10,7 @@ library(stringr)
 shinyUI(
   
   # Navigation bar for the app
-  navbarPage(title = div(img(src="https://raw.githubusercontent.com/carviagu/impact_effect_dashboard/main/img/IMPACTEFFECTLOGO_transparent.PNG",
+  navbarPage(title = div(img(src="https://raw.githubusercontent.com/carviagu/impact_effect_dashboard/main/img/IMPACTEFFECTLOGO_transparent.png",
                              style="margin-top: -14px;
                                padding-bottom:10px",
                              height = 59, width = 200)),
@@ -21,11 +21,11 @@ shinyUI(
                       br(),
                       h1(strong("Welcome to the"), 
                          style = "font-size:50px;", align = "center"),
-                      div(align = "center",
+                      div(align = "center", style="margin-top:10px",
                           img(src="https://raw.githubusercontent.com/carviagu/impact_effect_dashboard/main/img/IMPACTEFFECTLOGO.PNG",
                               height = 150)),
                       p("Discover more about Causal Impact and see how it works", 
-                        style="font-size:25px; margin-top:20px", align = "center"),
+                        style="font-size:25px; margin-top:30px", align = "center"),
                       div(align = "center", style = "margin-top:50px",
                           actionButton(inputId = "goToSim", label = "Start Simulating", 
                                        style="color: #fff; background-color: #337ab7; 
@@ -123,7 +123,6 @@ shinyUI(
                      click = 'onClick'
                    ) %>% withSpinner(type = 8, size = 0.5, color = '#7D7C7C'),
                    
-                   # TO DO 
                    # Add information about impact (quantity, dates and days)
                    fluidRow( align="center",
                      column(width=4, align="left",
@@ -183,7 +182,7 @@ shinyUI(
                  )
               ),
       tabPanel("About",icon = icon("book"),
-        includeMarkdown("resources/about.Rmd")
+        includeMarkdown("resources/about.md")
       )
       
     )

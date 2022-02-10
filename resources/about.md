@@ -1,11 +1,3 @@
----
-title: "About the Impact Effect Dashboard"
-date: ""
-output: 
-  html_document:
-    toc: true
----
-
 
 ## About the Impact Effect Dashboard 
 
@@ -57,24 +49,29 @@ To specify the criterium for selecting the time interval. It could be either by 
 
 #### Outputs displayed
 
-* **Casual impact event analysis**. 
+* **Casual impact event analysis**. This will show you the expected response, predicted with Causal Impact library and values like the total impact,
+event start and end days, and how many days needed to recover from the impact at the start position. 
 
-* **More details**.
+It is interesting to talk about the computation related with the days to recover. We consider that the values are recovered when the final value is inside the confidence interval of the expected values. One this point is stablished we try to revert from the end point where the impact is active.
+
+* **More details**. You will find a chart for displaying the Accumulated and Relative impacts. You can also download the auto-generated report by Causal Impact library. 
 
 ### The team
 
-* **Carlos Viñals Guitart** (carlos.vinals@cunef.edu) - Github repo: https://github.com/carviagu/impact_effect_dashboard 
+* **Carlos Viñals Guitart** (carlos.vinals@cunef.edu) - [@carviagu](https://github.com/carviagu) 
 
-* **Sergio Ranz Casado** (sergio.ranz@cunef.edu) - Github repo: https://github.com/sergerc/impact_effect_dashboard 
+* **Sergio Ranz Casado** (sergio.ranz@cunef.edu) - [@sergerc](https://github.com/sergerc)
 
-* **Marcos Medina Cogolludo** (marcos.medina@cunef.edu) - Github repo: https://github.com/marcosmedina97/impact_effect_dashboard 
+* **Marcos Medina Cogolludo** (marcos.medina@cunef.edu) - [@marcosmedina97](https://github.com/marcosmedina97)
 
-* **Jaime del Saz** (jaime.saz@cunef.edu) - Github repo: https://github.com/jaimee8/impact_effect_dashboard
+* **Jaime del Saz** (jaime.saz@cunef.edu) - [@jaimee8](https://github.com/jaimee8) 
 
-* **Álvaro Serrano del Rincón** (a.serranodelrincon@cunef.edu) - Github repo: https://github.com/aserincon/impact_effect_dashboard
+* **Álvaro Serrano del Rincón** (a.serranodelrincon@cunef.edu) - [@aserincon](https://github.com/aserincon)
 
 ### References
 
 Brodersen, K. H., Gallusser, F., Koehler, J., Remy, N., & Scott, S. L. (2015). Inferring causal impact using Bayesian structural time-series models. The Annals of Applied Statistics, 9(1), 247-274. 
 
-![](https://www.fondos12.com/data/big/18/thats-all-folks-7172-1920x1200__wallpaper_480x300.jpg)
+
+![](../img/thatsAll.gif)
+
