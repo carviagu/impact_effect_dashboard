@@ -10,7 +10,10 @@ library(stringr)
 shinyUI(
   
   # Navigation bar for the app
-  navbarPage("Impact Effect Dashboard",
+  navbarPage(title = div(img(src="https://raw.githubusercontent.com/sergerc/California_Electricity_Demand_Forecast/main/Imagenes/IMPACTEFFECTLOGO.PNG",
+                             style="margin-top: -14px;
+                               padding-bottom:10px",
+                             height = 59, width = 200)),
              id = "nav",
              
              # Welcome pane 
@@ -30,7 +33,13 @@ shinyUI(
                       p("Impact Effect Dashboard is an app created to understad how Causal Impact
                         library works with different examples where you can study the effects on 
                         different circumstances.", 
-                        style="font-size:20px; margin-top:20px", align = "center")
+                        style="font-size:20px; margin-top:20px", align = "center"),
+                      div(align = "center",style = "margin-top:100px",
+                          img(src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMeWxt4VQpaUIGEvrNaOIc6Tq6Qqgx_jQs-drx7o9LH7DaY89KFqp5HwvnQEysjZt8rfY&usqp=CAU",
+                              height = 50),
+                          img(src="https://www.worldbank.org/content/dam/photos/780x439/2021/apr/Shiny-logo.png",
+                              height = 100))
+                          
                       ),
              
              # Simulation pane
@@ -89,7 +98,7 @@ shinyUI(
                      numericInput(
                        inputId = "maxNum",
                        label = 'Upper limit',
-                       value = 100
+                       value = 110
                      )
                    ),
                    
